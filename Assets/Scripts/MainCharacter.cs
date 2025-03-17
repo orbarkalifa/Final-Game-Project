@@ -15,9 +15,9 @@ public class MainCharacter : Character
     [SerializeField] Transform suitVisualSlot; // Slot for the suit visual
     private GameObject currentSuitVisual; // Holds the current suit visual instance
     private Vector2 facingDirection = Vector2.right; // Default facing direction
-
-    //flag to check
     public bool doneLoading = false;
+    //flag to check
+    
     protected override void Awake()
     {
         base.Awake();
@@ -31,17 +31,19 @@ public class MainCharacter : Character
             Debug.LogError("CharacterMovement component is missing.");
         if (!characterCombat)
             Debug.LogError("CharacterCombat component is missing.");
-        doneLoading = true;
-
+        
     }
 
     void Start()
     {
         m_UIChannel.ChangeHealth(currentHits);
+        doneLoading = true;
+
     }
 
     private void Update()
     {
+        
         Vector2 movementInput = inputActions.Player.Move.ReadValue<Vector2>();
         characterMovement.SetHorizontalInput(movementInput);
         facingDirection = movementInput.x < 0 ? Vector2.left : Vector2.right;

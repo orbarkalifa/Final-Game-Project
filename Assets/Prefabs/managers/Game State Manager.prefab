@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sourceState: {fileID: 1125631600238186768}
   targetState: {fileID: 2656185304158620650}
-  Player: {fileID: 5390389815299700775, guid: 55e24d5c3bf8eff49b03ed296e36ab68, type: 3}
+  Player: {fileID: 3009449442027460440, guid: 74442e97a38c8324fba4644940532467, type: 3}
 --- !u!1 &5343591177912205110
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,6 +22,7 @@ public class GameStateManager : MonoBehaviour
         // This ensures only one instance if you use the typical Singleton pattern
         if (FindObjectsOfType<GameStateManager>().Length > 1) 
         {
+            Debug.LogError("More than 1 manager in the scene");
             Destroy(gameObject);
             return;
         }
@@ -90,7 +91,15 @@ public class GameStateManager : MonoBehaviour
 
     public void ResetGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        StateEnter(previousState);
+        if(previousState != null)
+        {
+            StateEnter(previousState);
+        }
+        else
+        {
+            // Fallback to defaultState if previousState is null
+            StateEnter(defaultState);
+        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

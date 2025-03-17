@@ -22,6 +22,7 @@ public class GameState : MonoBehaviour
             transitions.Add(transition);
             Debug.Log(transition.TargetState);
         }
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()

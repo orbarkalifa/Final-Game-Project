@@ -27,7 +27,6 @@ public class GameOverScreen : MonoBehaviour
         gameOverScreen.SetActive(false);
         Debug.Log("subscribed");
         GmaGameStateChannel.StateEnter += ToggleGOScreen;
-        GmaGameStateChannel.StateExit += ToggleGOScreen;
     }
 
 
