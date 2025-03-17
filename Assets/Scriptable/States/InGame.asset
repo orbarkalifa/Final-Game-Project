@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9714a605a1f066f4697b4f1f99ee035c, type: 3}
   m_Name: InGame
   m_EditorClassIdentifier: 
-  m_States: 1
+  states: 1
   canMenu: 1
   canMove: 1

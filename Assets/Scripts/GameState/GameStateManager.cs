@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Scriptable.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,7 @@ public class GameStateManager : MonoBehaviour
 
     private List<GameState> states = new();
     private GameStateChannel gameStateChannel;
+    private  UIChannelSo UIChannel;
 
     void Awake()
     {
@@ -27,7 +29,7 @@ public class GameStateManager : MonoBehaviour
         
         
         var beacon = FindObjectOfType<Beacon>();
-            
+        UIChannel = beacon.UIChannel;
         gameStateChannel = beacon.gameStateChannel;
         gameStateChannel.StateEnter += StateEnter;
         gameStateChannel.GetCurrentState += GetCurrentState;
@@ -75,13 +77,20 @@ public class GameStateManager : MonoBehaviour
 
     private void StateEnter(GameState state)
     {
+        Debug.Log(state);
         previousState = currentState;
         currentState = state;
+        gameStateChannel.StateExited(previousState);
     }
-
     private void OnDestroy()
     {
         gameStateChannel.StateEnter -= StateEnter;
         gameStateChannel.GetCurrentState -= GetCurrentState;
+    }
+
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        StateEnter(previousState);
     }
 }

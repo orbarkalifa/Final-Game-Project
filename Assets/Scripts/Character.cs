@@ -25,5 +25,6 @@ public abstract class Character : MonoBehaviour
     {
         Debug.Log($"{gameObject.name} has died.");
         Destroy(gameObject); 
+        
     }
 }

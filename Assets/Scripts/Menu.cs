@@ -1,3 +1,4 @@
+using Scriptable.Scripts;
 using UnityEngine;
 
 public class Menu : MonoBehaviour
@@ -5,7 +6,7 @@ public class Menu : MonoBehaviour
 
     [SerializeField]
     private GameObject menuPanel;
-    private GameStateChannel gameStateChannel;
+    private GameStateChannel GmaGameStateChannel;
 
     private void Awake()
     {
@@ -14,26 +15,25 @@ public class Menu : MonoBehaviour
             Debug.LogError("MenuPanel is not assigned! Assign it in the Inspector.");
         }
         
-        gameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
-        if (gameStateChannel == null)
+        GmaGameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
+        if (GmaGameStateChannel == null)
         {
             Debug.LogError("gameStateChannel not found in the scene!");
             return;
         }
         menuPanel.SetActive(false);
         Debug.Log("subscribed");
-        gameStateChannel.OnMenuClicked += OnToggleMenu;
+        GmaGameStateChannel.StateEnter += ToggleMenu;
+        GmaGameStateChannel.StateExit += ToggleMenu;
     }
 
 
-    public void OnToggleMenu()
+    public void ToggleMenu(GameState state)
     {
-        // You could check here if the current state allows for the menu
-        GameState current = gameStateChannel.GetCurrentGameState();
-        if(!current || !current.stateSO.canMenu)
-        {
+        if(state.Estate.states != stateSO.GameStates.Menu)
             return;
-        }
+        Debug.Log("ToggleMenu");
+        // You could check here if the current state allows for the menu
         bool isActive = menuPanel.activeSelf;
         menuPanel.SetActive(!isActive);
 

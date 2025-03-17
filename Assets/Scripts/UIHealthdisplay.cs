@@ -10,7 +10,7 @@ public class UIHealthdisplay : MonoBehaviour
     private TextMeshProUGUI healthText;
     
     
-    private HealthChannelSo healthChannel;
+    private UIChannelSo m_UIChannel;
     private int maxHealth;
     private int currentHealth;
     [SerializeField]private Sprite eyeSprite;
@@ -18,8 +18,8 @@ public class UIHealthdisplay : MonoBehaviour
     
     void Awake()
     {
-        healthChannel = FindObjectOfType<Beacon>().healthChannel;
-        healthChannel.OnChangeHealth += updateText;
+        m_UIChannel = FindObjectOfType<Beacon>().UIChannel;
+        m_UIChannel.OnChangeHealth += updateText;
         healthText = GetComponent<TextMeshProUGUI>();
     }
     

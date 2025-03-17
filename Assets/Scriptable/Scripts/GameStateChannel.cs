@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameStateChannel : ScriptableObject
 {
     public Action<GameState> StateEnter;
+    public Action<GameState> StateExit;
     public Func<GameState> GetCurrentState;
     public event Action OnMenuClicked;
     public void MenuClicked()
@@ -18,7 +19,12 @@ public class GameStateChannel : ScriptableObject
     {
         StateEnter?.Invoke(gameState);
     }
-    
+
+    public void StateExited(GameState gameState)
+    {
+        StateExit?.Invoke(gameState);
+        
+    }
 
     public GameState GetCurrentGameState()
     {

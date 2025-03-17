@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameState : MonoBehaviour
 {
-    public stateSO stateSO;
+    [FormerlySerializedAs("stateSO")]
+    public stateSO Estate;
     [SerializeField] public GameState nextState;
     private List<TransitionBase> transitions = new();
     public bool wasTransitionInto = false;
@@ -18,6 +20,7 @@ public class GameState : MonoBehaviour
         foreach (var transition in GetComponentsInChildren<TransitionBase>())
         {
             transitions.Add(transition);
+            Debug.Log(transition.TargetState);
         }
     }
 
@@ -25,15 +28,14 @@ public class GameState : MonoBehaviour
     { 
         if (!CheckIfCurrent())
             return;
-        
         nextState = null;
         foreach (var transition in transitions.Where(x => x.ShouldTransition()))
         {
             if (transition.TargetState)
             {
                 nextState = transition.TargetState;
+                break;
             }
-            break;
         }
 
         if (!inTransition && !wasTransitionInto && nextState)
@@ -48,9 +50,8 @@ public class GameState : MonoBehaviour
         {
             wasTransitionInto = false;
         }
-
-
     }
+    
     public bool CheckIfCurrent()
     {
         return gameStateChannel.GetCurrentGameState() == this;;
@@ -58,10 +59,7 @@ public class GameState : MonoBehaviour
     public void StateEnter(GameState next)
     {
         wasTransitionInto = true;
-        Debug.Log($"game state is entered {next.CheckIfCurrent()}");
+        Debug.Log($"game state is entered {next}");
         gameStateChannel.StateEntered(next);    
     }
-
-
-
 }

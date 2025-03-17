@@ -7,7 +7,7 @@ public class MainCharacter : Character
     private CharacterMovement characterMovement;
     private CharacterCombat characterCombat;
     private InputSystem_Actions inputActions;
-    private HealthChannelSo healthChannel;
+    private UIChannelSo m_UIChannel;
     private GameStateChannel gameStateChannel;
     private Suit equippedSuit;
     
@@ -16,11 +16,13 @@ public class MainCharacter : Character
     private GameObject currentSuitVisual; // Holds the current suit visual instance
     private Vector2 facingDirection = Vector2.right; // Default facing direction
 
+    //flag to check
+    public bool doneLoading = false;
     protected override void Awake()
     {
         base.Awake();
         inputActions = new InputSystem_Actions();
-        healthChannel = FindObjectOfType<Beacon>().healthChannel;
+        m_UIChannel = FindObjectOfType<Beacon>().UIChannel;
         gameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
         characterMovement = GetComponent<CharacterMovement>();
         characterCombat = GetComponent<CharacterCombat>();
@@ -29,12 +31,13 @@ public class MainCharacter : Character
             Debug.LogError("CharacterMovement component is missing.");
         if (!characterCombat)
             Debug.LogError("CharacterCombat component is missing.");
-        
+        doneLoading = true;
+
     }
 
     void Start()
     {
-        healthChannel.ChangeHealth(currentHits);
+        m_UIChannel.ChangeHealth(currentHits);
     }
 
     private void Update()
@@ -51,7 +54,6 @@ public class MainCharacter : Character
     private void OnEnable()
     {
         inputActions.Enable();
-
         // Register Input Action Callbacks
         inputActions.Player.Jump.performed += _ => characterMovement.Jump();
         inputActions.Player.Jump.canceled += _ => characterMovement.OnJumpReleased();
@@ -119,7 +121,7 @@ public class MainCharacter : Character
     {
         currentHits -= damage;
         Debug.Log($"{gameObject.name} took {damage} damage. HP: {currentHits}");
-        healthChannel.ChangeHealth(currentHits);
+        m_UIChannel.ChangeHealth(currentHits);
         if (currentHits <= 0)
         {
             OnDeath();
@@ -161,9 +163,14 @@ public class MainCharacter : Character
     public void Heal()
     {
         currentHits = Mathf.Min(currentHits + 1, maxHits);
-        healthChannel.ChangeHealth(currentHits);
+        m_UIChannel.ChangeHealth(currentHits);
     }
-    
+
+    protected override void OnDeath()
+    {
+        base.OnDeath();
+    }
+
     private void OnDestroy()
     {
         inputActions?.Dispose();

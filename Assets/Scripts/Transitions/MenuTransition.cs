@@ -13,13 +13,15 @@ public class MenuTransition : TransitionBase
 
         // Initialize Input Actions
         // Get the GameStateChannel
-        gameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
+        var beacon = FindObjectOfType<Beacon>();
+        gameStateChannel = beacon.gameStateChannel;
+        
         gameStateChannel.OnMenuClicked += CheckIfMenuWasPressed;
     }
     public override bool ShouldTransition()
     {
         if(!sourceState.CheckIfCurrent()) return false;
-        bool canTransition = (UserPressedMenu && gameStateChannel.GetCurrentGameState().stateSO.canMenu);
+        bool canTransition = (UserPressedMenu && gameStateChannel.GetCurrentGameState().Estate.canMenu);
         UserPressedMenu = false; 
         return canTransition;
     }

@@ -9,12 +9,12 @@ public class UIEyeBar : MonoBehaviour
     private int maxHealth; 
     private int currentHealth;
     [SerializeField] private GameObject EyePrefab;
-    private HealthChannelSo healthChannel;
+    private UIChannelSo m_UIChannel;
     List<UIEyeScript> eyes = new List<UIEyeScript>();
     private void Awake()
     {
-        healthChannel = FindObjectOfType<Beacon>().healthChannel;
-        healthChannel.OnChangeHealth += UpdateHUD;
+        m_UIChannel = FindObjectOfType<Beacon>().UIChannel;
+        m_UIChannel.OnChangeHealth += UpdateHUD;
     }
 
     void CreateEye(bool value)

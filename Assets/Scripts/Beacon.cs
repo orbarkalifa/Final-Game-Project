@@ -6,7 +6,9 @@ using UnityEngine.Serialization;
 
 public class Beacon : MonoBehaviour
 {
-    public HealthChannelSo healthChannel;
+    [FormerlySerializedAs("m_UChannel")]
+    [FormerlySerializedAs("healthChannel")]
+    public UIChannelSo UIChannel;
     public GameStateChannel gameStateChannel;
     
     void Awake()

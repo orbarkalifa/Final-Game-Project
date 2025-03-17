@@ -10,9 +10,10 @@ public class stateSO : ScriptableObject
     public GameStates states;
     public enum GameStates
     {
-        start,
-        inGame,
-        menu
+        Start,
+        InGame,
+        Menu,
+        GameOver,
     }
 
     public bool canMenu;
