@@ -12,11 +12,6 @@ namespace GameStateManagement
         [SerializeField] private GameObject inGameHUDPanel;
 
         private BeaconSO beacon;
-        private void Awake()
-        {
-            /*beacon.uiChannel.updateUI += ;*/
-
-        }
 
         public void HideAllPanels()
         {
@@ -47,7 +42,7 @@ namespace GameStateManagement
             if (pauseMenuPanel != null)
             {
                 pauseMenuPanel.SetActive(true);
-                Debug.Log("UIManager: Pause Menu Panel activated.");
+                Debug.Log("UIManager: Pause Menu Panel activated. Active state: " +  pauseMenuPanel.activeSelf);
             }
             else
             {

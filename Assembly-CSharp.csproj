@@ -73,6 +73,7 @@
     <Compile Include="Assets\Low_Swordman\Demo\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\GameOverStateSO.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\PatrolStateSO.cs" />
+    <Compile Include="Assets\Scripts\GameStateManagement\UIChannelSo.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\StartGameState.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\GameStateSO.cs" />
